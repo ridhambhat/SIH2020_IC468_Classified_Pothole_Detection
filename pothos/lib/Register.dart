@@ -20,7 +20,7 @@ class RegisterCar extends StatelessWidget {
             children: <Widget>[
               Image.asset(
                 'assets/images/logo.png',
-                color: Colors.blueAccent[200],
+                color: Colors.teal,
               ),
               SizedBox(
                 height: 30,
@@ -31,18 +31,18 @@ class RegisterCar extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.person,
-                    color: Colors.blueAccent[200],
+                    color: Colors.teal,
                   ),
                   labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.blueAccent[200]),
+                  labelStyle: TextStyle(color: Colors.teal),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 1)),
+                          BorderSide(color: Colors.teal, width: 1)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 2)),
+                          BorderSide(color: Colors.teal, width: 2)),
                 ),
               ),
               SizedBox(height: 30),
@@ -52,19 +52,19 @@ class RegisterCar extends StatelessWidget {
                 maxLength: 10,
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  labelStyle: TextStyle(color: Colors.blueAccent[200]),
+                  labelStyle: TextStyle(color: Colors.teal),
                   prefixIcon: Icon(
                     Icons.phone,
-                    color: Colors.blueAccent[200],
+                    color: Colors.teal,
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 1)),
+                          BorderSide(color: Colors.teal, width: 1)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 2)),
+                          BorderSide(color: Colors.teal, width: 2)),
                 ),
               ),
               SizedBox(height: 10),
@@ -73,19 +73,19 @@ class RegisterCar extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Vehicle Model',
-                  labelStyle: TextStyle(color: Colors.blueAccent[200]),
+                  labelStyle: TextStyle(color: Colors.teal),
                   prefixIcon: Icon(
                     Icons.directions_car,
-                    color: Colors.blueAccent[200],
+                    color: Colors.teal,
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 1)),
+                          BorderSide(color: Colors.teal, width: 1)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent[200], width: 2)),
+                          BorderSide(color: Colors.teal, width: 2)),
                 ),
               ),
               SizedBox(height: 30),
@@ -93,13 +93,13 @@ class RegisterCar extends StatelessWidget {
                 minWidth: 200.0,
                 height: 50.0,
                 child: RaisedButton(
-                  color: Colors.blueAccent[200],
+                  color: Colors.teal,
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setBool('register', true);
                     Navigator.popAndPushNamed(context,
-                        '/main'); //Navigator.pushNamed(context, '/main');
+                        '/navigate'); //Navigator.pushNamed(context, '/main');
                   },
                   child: Text(
                     "Next",

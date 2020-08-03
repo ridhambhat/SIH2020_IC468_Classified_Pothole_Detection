@@ -9,17 +9,17 @@ class MenuItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
       child: Row(children: <Widget>[
         Icon(icon,
-          color:Colors.cyan,
+          color:Colors.teal,
           size: 30,
         ),
-        SizedBox(width: 20,),
+        SizedBox(width: 70,),
         Text(title,style:TextStyle(
-          fontWeight: FontWeight.w300,
-          fontSize: 26,
-          color: Colors.white
+          fontWeight: FontWeight.w500,
+          fontSize: 21,
+          color: Colors.teal
         ))
       ],),
     );
