@@ -11,6 +11,12 @@ import 'dart:math' as math;
 
 import 'package:pothos/pages/accelerometer.dart';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
+import 'package:sensors/sensors.dart';
+import 'package:oscilloscope/oscilloscope.dart';
+
 class MapPage extends StatefulWidget {
   @override
   _MapPageState createState() => _MapPageState();
@@ -20,7 +26,11 @@ class _MapPageState extends State<MapPage> {
   Timer timer;
   MapController _mapController = MapController();
   LatLong.LatLng _my = LatLong.LatLng(23.82, -23.45);
-  var pts = <LatLong.LatLng>[];
+
+  bool qwe = true;
+
+  double x = 0, y = 0, z = 0;
+  List<double> ztrace = List();
 
   Widget _child;
   bool _isSwitched = false;
@@ -63,7 +73,7 @@ class _MapPageState extends State<MapPage> {
       if (event.isSuccessful) {
         LatLong.LatLng latLng =
             LatLong.LatLng(event.location.latitude, event.location.longitude);
-        pts.add(latLng);
+       // pts.add(latLng);
         setState(() {
           _my = latLng;
           _mapController.move(_my, 18);
@@ -80,9 +90,18 @@ class _MapPageState extends State<MapPage> {
     );
     getLocation();
     _child = getMap();
-    pts.add(_my);
+   // pts.add(_my);
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) => DrawLines());
+
     super.initState();
+
+    accelerometerEvents.listen((AccelerometerEvent event) {
+      setState(() {
+        x = event.x;
+        y = event.y;
+        z = event.z;
+      });
+    });
   }
 
   Widget getMap() {
@@ -119,13 +138,19 @@ class _MapPageState extends State<MapPage> {
                     ))
           ]),
           PolylineLayerOptions(polylines: [
-            Polyline(points: pts, strokeWidth: 5.0, color: Colors.green)
+            Polyline(points: pts, strokeWidth: 5.0, color: Colors.green),
+            Polyline(points: pts2, strokeWidth: 5.0, color: Colors.red),
+            Polyline(points: pts3, strokeWidth: 5.0, color: Colors.orange),
+            Polyline(points: pts4, strokeWidth: 5.0, color: Colors.red),
+            Polyline(points: pts5, strokeWidth: 5.0, color: Colors.green),
           ])
         ]);
   }
 
   @override
   Widget build(BuildContext context) {
+    ztrace.add(z - 9.8);
+
     return Stack(
       children: <Widget>[
         Column(
@@ -165,6 +190,25 @@ class _MapPageState extends State<MapPage> {
                               activeTrackColor: Colors.amberAccent,
                               activeColor: Colors.amber,
                             )))))),
+        !_isSwitched
+            ? Positioned(
+                top: 750,
+                right: 10,
+                width: 70,
+                height: 70,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      _isSwitched = !_isSwitched;
+                    });
+                  },
+                  child: Icon(Icons.directions_car),
+                  backgroundColor: Colors.teal,
+                ))
+            : Container(
+                width: 0,
+                height: 0,
+              ),
       ],
     );
   }
@@ -172,51 +216,118 @@ class _MapPageState extends State<MapPage> {
   Widget Accelerometer() {
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
+
+    Oscilloscope oscilloscope = Oscilloscope(
+      padding: 0.0,
+      backgroundColor: Colors.white,
+      traceColor: qwe ? Colors.greenAccent : Colors.redAccent,
+      yAxisMax: 14.7,
+      yAxisMin: -14.7,
+      dataSet: ztrace,
+    );
+
     return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
           width: screenwidth,
-          height: screenheight * 0.3,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          height: screenheight * 0.35,
+          child: Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
                   children: <Widget>[
-                    Text(
-                      'Driving Mode',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w900),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Driving Mode',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w900),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Icon(
+                          Icons.drive_eta,
+                          size: 40,
+                          color: Colors.teal,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 30,
+                    Divider(
+                      height: 14,
+                      thickness: 1,
+                      color: Colors.teal.withOpacity(0.3),
+                      indent: 32,
+                      endIndent: 32,
                     ),
-                    Icon(
-                      Icons.drive_eta,
-                      size: 40,
-                      color: Colors.teal,
-                    ),
+                    Container(
+                        width: screenwidth,
+                        height: screenwidth * 0.2,
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
+                        child: Center(child: oscilloscope))
                   ],
                 ),
-                Divider(
-                  height: 14,
-                  thickness: 1,
-                  color: Colors.teal.withOpacity(0.3),
-                  indent: 32,
-                  endIndent: 32,
-                ),
-                AccelerometerPage()
-              ],
-            ),
+              ),
+              Positioned(
+                left: screenwidth - 100,
+                top: 200,
+                child: GestureDetector(
+                    onTap: () => {
+                          this.setState(() {
+                            qwe = !qwe;
+                          })
+                        },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      color: qwe ? Colors.white : Colors.redAccent,
+                    )),
+              ),
+            ],
           ),
           decoration: BoxDecoration(
             color: Colors.white,
           ),
         ));
   }
+
+  var pts = <LatLong.LatLng>[
+    LatLong.LatLng(28.417480, 77.327901),
+    LatLong.LatLng(28.417827, 77.327866),
+    LatLong.LatLng(28.417874, 77.328193),
+    LatLong.LatLng(28.418120, 77.328166),
+    LatLong.LatLng(28.418156, 77.327984),
+    LatLong.LatLng(28.418142, 77.328016),
+    LatLong.LatLng(28.418081, 77.327185),
+    LatLong.LatLng(28.417185, 77.327233),
+    LatLong.LatLng(28.416907, 77.327240),
+    LatLong.LatLng(28.416881, 77.326848),
+    LatLong.LatLng(28.416605, 77.326870),
+  ];
+
+  var pts2 = <LatLong.LatLng>[
+        LatLong.LatLng(28.416612, 77.326865),
+        LatLong.LatLng(28.416786, 77.330090)
+  ];
+  var pts3 = <LatLong.LatLng>[
+        LatLong.LatLng(28.417480, 77.327901),
+        LatLong.LatLng(28.417211, 77.327939),
+        LatLong.LatLng(28.417213, 77.328221)
+  ];
+  var pts4 = <LatLong.LatLng>[
+        LatLong.LatLng(28.417213, 77.328221),
+        LatLong.LatLng(28.416970, 77.328245),
+  ];
+
+  var pts5 = <LatLong.LatLng>[
+        LatLong.LatLng(28.416970, 77.328245),
+        LatLong.LatLng(28.416923, 77.327239)
+  ];
+
 }
 
 class CustomMenuClipper extends CustomClipper<Path> {

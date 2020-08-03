@@ -9,7 +9,8 @@ class SideBarLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body:Stack(
-        children: <Widget>[MapPage(), SideBar()],
+        children: <Widget>[MapPage(),
+         SideBar()],
       )
     );
   }

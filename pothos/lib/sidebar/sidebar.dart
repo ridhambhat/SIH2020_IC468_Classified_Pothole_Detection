@@ -67,29 +67,137 @@ class _SideBarState extends State<SideBar>
             top: 0,
             bottom: 0,
             left: isSideBarOpenendAsync.data ? 0 : -screenwidth,
-            right: isSideBarOpenendAsync.data ? 0 : screenwidth - 45,
+            right: isSideBarOpenendAsync.data ? 55 : screenwidth - 40,
             child: Row(
               children: <Widget>[
+               
+               
                 Expanded(
-                  child: Container(color: Colors.teal,
+                  child: Column(
+                    children:<Widget>[
+                    Container(color: Colors.teal,
+                    width: 400,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 200,),
-                        Text("Hello Sayantanu"),
-                        Divider(
-                            height: 64,
-                            thickness: 0.5,
-                            color: Colors.white.withOpacity(0.3),
+                          
+                            SizedBox(height: 70,),
+                            CircleAvatar(
+                              backgroundImage: AssetImage("assets/images/avatar.jpg"),
+                              radius: 50,
+                             ),
+                            SizedBox(height: 20,),
+                            Text("Jane Doe", style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.w600),),
+                            SizedBox(height: 20,),
+                            
+                        
+                        // SizedBox(height: 200,),
+                        // Text("Hello Sayantanu"),
+                        // Divider(
+                        //     height: 64,
+                        //     thickness: 0.5,
+                        //     color: Colors.white.withOpacity(0.3),
+                        //     indent: 32,
+                        //     endIndent: 32,
+                        // ),
+                        // MenuItems(icon: Icons.location_on,title: 'Drive',),
+                        // MenuItems(icon: Icons.directions_car,title: 'Car Status',),
+                        // MenuItems(icon: Icons.category,title: 'About',)
+                      ],
+              )
+                    ),
+
+                    Expanded(
+                      child:Container(color: Colors.white,
+                    width: 400,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: <Widget>[
+                          SizedBox(height: 20,),
+                          Text("Your Contribution", style: TextStyle(color: Colors.teal, fontSize: 20,fontWeight: FontWeight.w500),),
+                          Divider(
+                            height: 24,
+                            thickness: 1,
+                            color: Colors.teal.withOpacity(0.3),
                             indent: 32,
                             endIndent: 32,
-                        ),
-                        MenuItems(icon: Icons.location_on,title: 'Drive',),
-                        MenuItems(icon: Icons.directions_car,title: 'Car Status',),
-                        MenuItems(icon: Icons.category,title: 'About',)
+                          ),
+                          
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  decoration:BoxDecoration(shape: BoxShape.circle,
+                                  color: Colors.teal
+                                  ),
+                                 child:Icon(Icons.star,color: Colors.white,)
+                                ),
+                                SizedBox(width: 80,),
+                                Text("Detected 30 potholes",style: TextStyle(color: Colors.teal, fontSize: 15,fontWeight: FontWeight.w500))
+
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  decoration:BoxDecoration(shape: BoxShape.circle,
+                                  color: Colors.teal
+                                  ),
+                                 child:Icon(Icons.star,color: Colors.white,)
+                                ),
+                                SizedBox(width: 80,),
+                                Text("Scanned 100 Kms",style: TextStyle(color: Colors.teal, fontSize: 15,fontWeight: FontWeight.w500))
+
+                              ],
+                            ),
+                            
+                            SizedBox(height: 5,),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  decoration:BoxDecoration(shape: BoxShape.circle,
+                                  color: Colors.teal
+                                  ),
+                                 child:Icon(Icons.star,color: Colors.white,)
+                                ),
+                                SizedBox(width: 80,),
+                                
+                                Text("A+ Citizen",style: TextStyle(color: Colors.teal, fontSize: 15,fontWeight: FontWeight.w500))
+                                
+                              ],
+                            ),
+                            Divider(
+                            height: 24,
+                            thickness: 1,
+                            color: Colors.teal.withOpacity(0.3),
+                            indent: 32,
+                            endIndent: 32,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child:Text("Quick Links",style: TextStyle(color: Colors.grey, fontSize: 17,fontWeight: FontWeight.w500)),
+                          ),
+                          MenuItems(
+                            icon: Icons.person,
+                            title: "Profile",
+                          ),
+                          MenuItems(
+                            icon: Icons.settings,
+                            title: "Settings",
+                          ),
+                          Divider(
+                            height: 24,
+                            thickness: 1,
+                            color: Colors.teal.withOpacity(0.3),
+                            indent: 32,
+                            endIndent: 32,
+                          ),
+                          
+
                       ],
-                    ),
-                  )
+              )
+                    ))
+                     ] )
                   
                   ),
                 Align(

@@ -38,6 +38,7 @@ dependencies:
   flutter_polyline_points: ^0.2.2
   flutter_map:
   geolocation: any
+  flappy_search_bar: 1.4.1
 
 
 dev_dependencies:
@@ -60,6 +61,8 @@ flutter:
     - assets/images/logo.png
     - assets/images/destination_map_marker.png
     - assets/images/driving_pin.png
+    - assets/images/avatar.jpg
+    - assets/images/map.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
