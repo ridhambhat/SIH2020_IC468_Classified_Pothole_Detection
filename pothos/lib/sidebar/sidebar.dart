@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:pothos/sidebar/menu_items.dart';
 import 'package:rxdart/subjects.dart';
 
+import 'menu_items.dart';
+
 class SideBar extends StatefulWidget {
   @override
   _SideBarState createState() => _SideBarState();
@@ -76,7 +78,7 @@ class _SideBarState extends State<SideBar>
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 200,),
-                        Text("Hello Sayantanu"),
+                        Text("Hello Sayantanu", style: TextStyle(fontSize: 20),),
                         Divider(
                             height: 64,
                             thickness: 0.5,
@@ -85,6 +87,7 @@ class _SideBarState extends State<SideBar>
                             endIndent: 32,
                         ),
                         MenuItems(icon: Icons.location_on,title: 'Drive',),
+                        MenuItems(icon: Icons.map, title: 'Road Health Map'),
                         MenuItems(icon: Icons.directions_car,title: 'Car Status',),
                         MenuItems(icon: Icons.category,title: 'About',)
                       ],

@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>main.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:shared_preferences/shared_preferences.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'Register.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'mainScreen.dart'</span><span class="s2">;</span>
+
+<span class="s0">Future&lt;</span><span class="s2">void</span><span class="s0">&gt; main() async{</span>
+  <span class="s0">WidgetsFlutterBinding.ensureInitialized()</span><span class="s2">;</span>
+  <span class="s0">SharedPreferences prefs = await SharedPreferences.getInstance()</span><span class="s2">;  </span>
+  <span class="s0">String bootstrap = prefs.getBool(</span><span class="s1">'register'</span><span class="s0">)==</span><span class="s2">true</span><span class="s0">? </span><span class="s1">'/main'</span><span class="s0">:</span><span class="s1">'/register'</span><span class="s2">;</span>
+
+  <span class="s0">runApp(MaterialApp(</span>
+    <span class="s0">debugShowCheckedModeBanner: </span><span class="s2">false,</span>
+    <span class="s0">title: </span><span class="s1">'Pothos'</span><span class="s2">,</span>
+    <span class="s0">initialRoute: bootstrap</span><span class="s2">,</span>
+    <span class="s0">routes: {</span>
+      <span class="s1">'/main'</span><span class="s0">: (context) =&gt; MainScreen()</span><span class="s2">,</span>
+      <span class="s1">'/register'</span><span class="s0">: (context) =&gt; RegisterCar()</span><span class="s2">,</span>
+    <span class="s0">}</span><span class="s2">,</span>
+  <span class="s0">))</span><span class="s2">;</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,2 @@
+rootProject.name='Background_Location_Service'
+include ':app'
